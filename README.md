@@ -1,5 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/makaralina/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/makaralina/python-project-50/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1f531e934429de2a1a63/maintainability)](https://codeclimate.com/github/makaralina/python-project-50/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/1f531e934429de2a1a63/test_coverage)](https://codeclimate.com/github/makaralina/python-project-50/test_coverage)
 
 * #### **Diffs between two flat .json files:**
    ---
