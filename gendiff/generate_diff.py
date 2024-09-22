@@ -34,7 +34,7 @@ def make_stylish(data, format):
     return '\n'.join(result)
 
 
-def generate_diff(first_file, second_file, format):
+def generate_diff(first_file, second_file, format='stylish'):
     file1, file2 = load_json(first_file), load_json(second_file)
 
     combined_keys = sorted(file1.keys() | file2.keys())
