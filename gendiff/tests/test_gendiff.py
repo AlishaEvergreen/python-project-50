@@ -2,16 +2,14 @@ import pytest
 from gendiff import generate_diff
 from pathlib import Path
 
-BASE_PATH = Path(__file__).parent / 'fixtures'
+
+def get_fixture_path(filename):
+    return Path(__file__).parent / 'fixtures' / filename
 
 
 def read_file(filepath):
     with open(filepath, encoding='utf8') as f:
         return f.read().strip()
-
-
-def get_fixture_path(filename):
-    return BASE_PATH / filename
 
 
 @pytest.mark.parametrize("file1, file2, expected", [
