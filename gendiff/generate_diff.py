@@ -1,9 +1,4 @@
-import json
-
-
-def load_json(filepath):
-    with open(filepath, 'r') as file:
-        return json.load(file)
+from gendiff.data_parsers import parse_by_extension
 
 
 def serialize_bool(value):
@@ -35,7 +30,8 @@ def make_stylish(data, format):
 
 
 def generate_diff(first_file, second_file, format='stylish'):
-    file1, file2 = load_json(first_file), load_json(second_file)
+    file1 = parse_by_extension(first_file)
+    file2 = parse_by_extension(second_file)
 
     combined_keys = sorted(file1.keys() | file2.keys())
     diffs = []
