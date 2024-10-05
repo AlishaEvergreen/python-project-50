@@ -36,6 +36,14 @@ def read_file(filepath):
     (get_fixture_path('nested_file1.yaml'),
      get_fixture_path('nested_file2.yaml'), 'plain',
      read_file(get_fixture_path('plain_result.txt'))),
+
+    (get_fixture_path('nested_file1.json'),
+     get_fixture_path('nested_file2.json'), 'json',
+     read_file(get_fixture_path('json_result.txt'))),
+
+    (get_fixture_path('nested_file1.yaml'),
+     get_fixture_path('nested_file2.yaml'), 'json',
+     read_file(get_fixture_path('json_result.txt'))),
 ])
 def test_gendiff(file1, file2, format, expected):
     assert generate_diff(file1, file2, format) == expected
