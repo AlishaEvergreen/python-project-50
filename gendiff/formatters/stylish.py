@@ -15,11 +15,10 @@ def format_dict(content, depth):
     values into a structured string representation.'''
     indent = " "
     formatted_lines = []
-    indent_for_value = get_indent_for_value(content)
     for key, value in content.items():
         current_indent = indent * (depth * 2 + 2)
         formatted_lines.append(
-            f"{current_indent}{key}:{indent_for_value}"
+            f"{current_indent}{key}: "
             f"{format_value(value, depth + 2)}"
         )
         closing_indent_level = indent * ((depth - 1) * 2)
@@ -38,11 +37,6 @@ def format_value(value, depth=0):
     return value
 
 
-def get_indent_for_value(value):
-    '''Get the indentation string based on the value.'''
-    return '' if value == '' else ' '
-
-
 def make_stylish(diffs, replacer=' ', spaces_count=2):
     ''' Generate a stylish representation of a list of differences.'''
 
@@ -54,28 +48,26 @@ def make_stylish(diffs, replacer=' ', spaces_count=2):
             key = diff.get('key')
             value1 = diff.get('value1')
             value2 = diff.get('value2')
-            ind1 = get_indent_for_value(value1)
-            ind2 = get_indent_for_value(value2)
             status = STATUS_SYMBOLS.get(diff['type'])
 
             match diff['type']:
                 case 'unchanged' | 'removed' | 'added':
                     lines.append(
-                        f"{deep_indent}{status}{key}:{ind1}"
+                        f"{deep_indent}{status}{key}: "
                         f"{format_value(value1, depth + 2)}"
                     )
                 case 'updated':
                     lines.append(
-                        f"{deep_indent}{STATUS_SYMBOLS['removed']}{key}:{ind1}"
+                        f"{deep_indent}{STATUS_SYMBOLS['removed']}{key}: "
                         f"{format_value(value1, depth + 2)}"
                     )
                     lines.append(
-                        f"{deep_indent}{STATUS_SYMBOLS['added']}{key}:{ind2}"
+                        f"{deep_indent}{STATUS_SYMBOLS['added']}{key}: "
                         f"{format_value(value2, depth + 2)}"
                     )
                 case 'nested':
                     lines.append(
-                        f"{deep_indent}{status}{key}:{ind1}"
+                        f"{deep_indent}{status}{key}: "
                         f"{iter_(diff['children'], depth + 2)}"
                     )
         closing_indent = replacer * ((depth - 1) * 2)
