@@ -27,7 +27,7 @@ Next, follow these steps:
 
 
 
-###  Commands:
+### **Launch commands:**
 ---
 ```gendiff <file_path1> <file_path2> --format <format>```
 
@@ -41,13 +41,15 @@ Display help on using the program — ```gendiff -h```.
 ---
 
 
-#### **Diffs between two flat .json files:**
+#### **Diffs between two flat .json files**
+
    [![asciicast](https://asciinema.org/a/pAAV7T3ozOVRyfD1K1LfeFNXG.svg)](https://asciinema.org/a/pAAV7T3ozOVRyfD1K1LfeFNXG)
 
-#### **Diffs between two flat .yml files:**
+#### **Diffs between two flat .yml files**
+
    [![asciicast](https://asciinema.org/a/NmbPA25nfhvDST8Q5SSjWoRRe.svg)](https://asciinema.org/a/NmbPA25nfhvDST8Q5SSjWoRRe)
 
-#### **Diffs between two .json or .yaml files with a nested structure:**
+#### **Diffs between two .json or .yaml files with a nested structure**
    
    - #### Stylish output format:
    [![asciicast](https://asciinema.org/a/k8Tr0y9pqEdbsgedAsemr5VMi.svg)](https://asciinema.org/a/k8Tr0y9pqEdbsgedAsemr5VMi)
@@ -57,3 +59,6 @@ Display help on using the program — ```gendiff -h```.
 
    - #### JSON output format:
    [![asciicast](https://asciinema.org/a/8sNsK1huLstCMEWTfYMrHX4dO.svg)](https://asciinema.org/a/8sNsK1huLstCMEWTfYMrHX4dO)
+
+---
+### Thanks for stopping by, buddy! ♥
