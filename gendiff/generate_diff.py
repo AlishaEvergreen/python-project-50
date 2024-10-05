@@ -1,51 +1,72 @@
 from gendiff.data_parsers import parse_by_extension
+from gendiff.stylish import make_stylish
 
 
-def serialize_bool(value):
-    if isinstance(value, bool):
-        return 'true' if value else 'false'
-    return value
+FORMATTERS = {
+    'stylish': make_stylish,
+}
 
 
-def make_stylish(data, format):
-    status_symbols = {
-        'unchanged': '   ',
-        'removed': ' - ',
-        'changed': ' + ',
-        'added': ' + '
-    }
-    lines = []
-    indent = ' '
+def generate_diff(file1, file2, format='stylish'):
+    """Generates the difference between two files."""
+    first_dict = parse_by_extension(file1)
+    second_dict = parse_by_extension(file2)
+    diff = build_diff(first_dict, second_dict)
 
-    for line in data:
-        filtered_items = filter(lambda item: item[0] != 'type', line.items())
-        key, value = list(filtered_items)[0]
-        status_symbol = status_symbols.get(line['type'])
-        line = f'{indent}{status_symbol}{key}: {serialize_bool(value)}'
-        lines.append(line)
-
-        result = ["{", *lines, "}"]
-
-    return '\n'.join(result)
+    return FORMATTERS[format](diff)
 
 
-def generate_diff(first_file, second_file, format='stylish'):
-    file1 = parse_by_extension(first_file)
-    file2 = parse_by_extension(second_file)
-
-    combined_keys = sorted(file1.keys() | file2.keys())
+def build_diff(data1, data2):
+    """ Builds a list of differences between two dictionaries."""
     diffs = []
+    combined_keys = sorted(data1.keys() | data2.keys())
 
-    for key in (combined_keys):
-        value1, value2 = file1.get(key), file2.get(key)
+    for key in combined_keys:
+        diff = set_type_for_difference(key, data1, data2)
+        diffs.append(diff)
 
-        if value1 == value2:
-            diffs.append({'type': 'unchanged', key: value1})
-        elif key in file1 and key in file2:
-            diffs.append({'type': 'removed', key: value1})
-            diffs.append({'type': 'changed', key: value2})
-        elif key in file1:
-            diffs.append({'type': 'removed', key: value1})
-        elif key in file2:
-            diffs.append({'type': 'added', key: value2})
-    return make_stylish(diffs, format)
+    return diffs
+
+
+def set_type_for_difference(key, data1, data2):
+    """Determines the type of difference for a specific key."""
+    value1 = data1.get(key)
+    value2 = data2.get(key)
+
+    match (key in data1, key in data2, value1, value2):
+        case (True, False, _, _):
+            return set_type('removed', key, value1)
+        case (False, True, _, _):
+            return set_type('added', key, value2)
+        case (True, False, value1, _) if is_dict(value1):
+            return set_type('nested', key, build_diff(value1, {}))
+        case (False, True, _, value2) if is_dict(value2):
+            return set_type('nested', key, build_diff({}, value2))
+        case (True, True, value1, value2):
+            if value1 == value2:
+                return set_type('unchanged', key, value1)
+            elif is_dict(value1) and is_dict(value2):
+                return set_type('nested', key, build_diff(value1, value2))
+            else:
+                return set_type('changed', key, value1, value2)
+
+
+def is_dict(data):
+    """Checks if the given object is a dictionary."""
+    return isinstance(data, dict)
+
+
+def set_type(diff_type, key, value1, value2="UNINITIALIZED"):
+    """Builds a dictionary with information about the type of change."""
+    result = {
+        'type': diff_type,
+        'key': key,
+    }
+    if diff_type == 'nested':
+        result['children'] = value1
+    else:
+        result['value1'] = value1
+    if value2 != "UNINITIALIZED":
+        result['value2'] = value2
+
+    return result
