@@ -4,9 +4,11 @@ def format_value(value):
         return 'true' if value else 'false'
     if value is None:
         return 'null'
+    if isinstance(value, str):
+        return f"'{value}'"
     if isinstance(value, dict):
         return '[complex value]'
-    return f"'{value}'"
+    return value
 
 
 def make_plain(diffs, path=''):
