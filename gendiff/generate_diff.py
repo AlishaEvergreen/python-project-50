@@ -1,6 +1,6 @@
 from gendiff.data_parsers import parse_by_extension
-from gendiff.stylish import make_stylish
-from gendiff.plain import make_plain
+from gendiff.formatters.stylish import make_stylish
+from gendiff.formatters.plain import make_plain
 
 
 FORMATTERS = {
