@@ -22,3 +22,7 @@
    - #### **Plain output format:**
    ---
    [![asciicast](https://asciinema.org/a/NbWR53aqcOI9vbDlbzn8Tb9sh.svg)](https://asciinema.org/a/NbWR53aqcOI9vbDlbzn8Tb9sh)
+
+   - #### **JSON output format:**
+   ---
+   [![asciicast](https://asciinema.org/a/8sNsK1huLstCMEWTfYMrHX4dO.svg)](https://asciinema.org/a/8sNsK1huLstCMEWTfYMrHX4dO)
