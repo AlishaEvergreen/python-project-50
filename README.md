@@ -14,6 +14,6 @@
    ---
    [![asciicast](https://asciinema.org/a/NmbPA25nfhvDST8Q5SSjWoRRe.svg)](https://asciinema.org/a/NmbPA25nfhvDST8Q5SSjWoRRe)
 
-* #### **Diffs between two files .json or .yaml with a nested structure | Stylish output format:**
+* #### **Diffs between two .json or .yaml files with a nested structure | Stylish output format:**
    ---
    [![asciicast](https://asciinema.org/a/k8Tr0y9pqEdbsgedAsemr5VMi.svg)](https://asciinema.org/a/k8Tr0y9pqEdbsgedAsemr5VMi)
