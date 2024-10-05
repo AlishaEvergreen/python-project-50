@@ -64,7 +64,7 @@ def make_stylish(diffs, replacer=' ', spaces_count=2):
                         f"{deep_indent}{status}{key}:{ind1}"
                         f"{format_value(value1, depth + 2)}"
                     )
-                case 'changed':
+                case 'updated':
                     lines.append(
                         f"{deep_indent}{STATUS_SYMBOLS['removed']}{key}:{ind1}"
                         f"{format_value(value1, depth + 2)}"

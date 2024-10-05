@@ -1,9 +1,11 @@
 from gendiff.data_parsers import parse_by_extension
 from gendiff.stylish import make_stylish
+from gendiff.plain import make_plain
 
 
 FORMATTERS = {
     'stylish': make_stylish,
+    'plain': make_plain,
 }
 
 
@@ -48,7 +50,7 @@ def set_type_for_difference(key, data1, data2):
             elif is_dict(value1) and is_dict(value2):
                 return set_type('nested', key, build_diff(value1, value2))
             else:
-                return set_type('changed', key, value1, value2)
+                return set_type('updated', key, value1, value2)
 
 
 def is_dict(data):
