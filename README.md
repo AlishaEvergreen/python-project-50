@@ -4,61 +4,71 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/1f531e934429de2a1a63/test_coverage)](https://codeclimate.com/github/makaralina/python-project-50/test_coverage)
 [![Python CI](https://github.com/makaralina/python-project-50/actions/workflows/main.yml/badge.svg)](https://github.com/makaralina/python-project-50/actions/workflows/main.yml)
 
-### **DIFFERENCE CALCULATOR**
 ---
-#### This is a CLI program to get differences between two *JSON* or *YAML* files in the following formats:
-- stylish;
+
+### 🔸**Project Overview**
+
+**Difference Calculator** is a CLI tool that allows users to compare two configuration files (*JSON* or *YAML*) and output their differences in various formats:
+- stylish (default);
 - plain;
 - json.
 
-### **Installation Requirements:**
 ---
+
+### 🔸**Requirements**
+
 - python 3.10+
 - poetry
 
-### **Installation:**
 ---
+
+### 🔸**Installation**
+
 `pip install git+https://github.com/makaralina/python-project-50.git`
 
-Next, follow these steps:
+After installation, run these commands to set up the project:
 - ```make install```
 - ```make build```
 - ```make package-reinstall```
 
-
-
-### **Launch commands:**
 ---
-```gendiff <file_path1> <file_path2> --format <format>```
 
+### 🔸**Usage**
+
+To use the tool from the command line, run the following command:
+```gendiff <file_path1> <file_path2> --format <format>```
+Arguments:
 - *```<file_path1>```* — path to first file;
 - *```<file_path2>```* — path to second file;
 - *```<format>```* — stylish/plain/json format.
 
-Display help on using the program — ```gendiff -h```.
+For help with available commands and options, run: ```gendiff -h```.
 
-### **Usage examples:**
 ---
 
+### 🔸**Usage Examples**
 
-#### **Diffs between two flat .json files**
+#### **Comparing two flat .json files:**
 
    [![asciicast](https://asciinema.org/a/pAAV7T3ozOVRyfD1K1LfeFNXG.svg)](https://asciinema.org/a/pAAV7T3ozOVRyfD1K1LfeFNXG)
 
-#### **Diffs between two flat .yml files**
+#### **Comparing two flat .yml files:**
 
    [![asciicast](https://asciinema.org/a/NmbPA25nfhvDST8Q5SSjWoRRe.svg)](https://asciinema.org/a/NmbPA25nfhvDST8Q5SSjWoRRe)
 
-#### **Diffs between two .json or .yaml files with a nested structure**
+#### **Comparing two .json or .yaml files with a nested structure:**
    
-   - #### Stylish output format:
+   - #### Stylish Output Format:
    [![asciicast](https://asciinema.org/a/k8Tr0y9pqEdbsgedAsemr5VMi.svg)](https://asciinema.org/a/k8Tr0y9pqEdbsgedAsemr5VMi)
 
-   - #### Plain output format:
+   - #### Plain Output Format:
    [![asciicast](https://asciinema.org/a/NbWR53aqcOI9vbDlbzn8Tb9sh.svg)](https://asciinema.org/a/NbWR53aqcOI9vbDlbzn8Tb9sh)
 
-   - #### JSON output format:
+   - #### JSON Output Format:
    [![asciicast](https://asciinema.org/a/8sNsK1huLstCMEWTfYMrHX4dO.svg)](https://asciinema.org/a/8sNsK1huLstCMEWTfYMrHX4dO)
 
 ---
-### Thanks for stopping by, buddy! ♥
+
+### ❤️ **Acknowledgements**
+
+#### Thanks for stopping by, buddy! If you find this tool helpful, don't forget to give it a ⭐ on GitHub!
