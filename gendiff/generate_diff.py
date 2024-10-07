@@ -22,14 +22,8 @@ def generate_diff(file1, file2, format='stylish'):
 
 def build_diff(data1, data2):
     """ Builds a list of differences between two dictionaries."""
-    diffs = []
     combined_keys = sorted(data1.keys() | data2.keys())
-
-    for key in combined_keys:
-        diff = set_type_for_difference(key, data1, data2)
-        diffs.append(diff)
-
-    return diffs
+    return [set_type_for_difference(key, data1, data2) for key in combined_keys]
 
 
 def set_type_for_difference(key, data1, data2):
@@ -39,20 +33,21 @@ def set_type_for_difference(key, data1, data2):
 
     match (key in data1, key in data2, value1, value2):
         case (True, False, _, _):
-            return set_type('removed', key, value1)
+            return create_diff_dict('removed', key, value1)
         case (False, True, _, _):
-            return set_type('added', key, value2)
+            return create_diff_dict('added', key, value2)
         case (True, False, value1, _) if is_dict(value1):
-            return set_type('nested', key, build_diff(value1, {}))
+            return create_diff_dict('nested', key, build_diff(value1, {}))
         case (False, True, _, value2) if is_dict(value2):
-            return set_type('nested', key, build_diff({}, value2))
+            return create_diff_dict('nested', key, build_diff({}, value2))
         case (True, True, value1, value2):
             if value1 == value2:
-                return set_type('unchanged', key, value1)
+                return create_diff_dict('unchanged', key, value1)
             elif is_dict(value1) and is_dict(value2):
-                return set_type('nested', key, build_diff(value1, value2))
-            else:
-                return set_type('updated', key, value1, value2)
+                return create_diff_dict(
+                    'nested', key, build_diff(value1, value2)
+                )
+            return create_diff_dict('updated', key, value1, value2)
 
 
 def is_dict(data):
@@ -60,17 +55,18 @@ def is_dict(data):
     return isinstance(data, dict)
 
 
-def set_type(diff_type, key, value1, value2="UNINITIALIZED"):
+def create_diff_dict(diff_type, key, value1, value2="UNINITIALIZED"):
     """Builds a dictionary with information about the type of change."""
-    result = {
+    diff_dict = {
         'type': diff_type,
         'key': key,
     }
     if diff_type == 'nested':
-        result['children'] = value1
+        diff_dict['children'] = value1
     else:
-        result['value1'] = value1
-    if value2 != "UNINITIALIZED":
-        result['value2'] = value2
+        diff_dict['value1'] = value1
 
-    return result
+    if value2 != "UNINITIALIZED":
+        diff_dict['value2'] = value2
+
+    return diff_dict

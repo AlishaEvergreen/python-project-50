@@ -30,11 +30,9 @@ def format_value(value, depth=0):
     '''Convert a value to its string representation.'''
     if isinstance(value, bool):
         return 'true' if value else 'false'
-    if value is None:
-        return 'null'
-    if isinstance(value, dict):
+    elif isinstance(value, dict):
         return format_dict(value, depth)
-    return value
+    return 'null' if value is None else value
 
 
 def make_stylish(diffs, replacer=' ', spaces_count=2):

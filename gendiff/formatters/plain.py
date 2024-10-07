@@ -2,13 +2,11 @@ def format_value(value):
     '''Convert the value to its string representation in the required format.'''
     if isinstance(value, bool):
         return 'true' if value else 'false'
-    if value is None:
+    elif value is None:
         return 'null'
-    if isinstance(value, str):
-        return f"'{value}'"
-    if isinstance(value, dict):
+    elif isinstance(value, dict):
         return '[complex value]'
-    return value
+    return f"'{value}'" if isinstance(value, str) else value
 
 
 def make_plain(diffs, path=''):
@@ -41,5 +39,5 @@ def make_plain(diffs, path=''):
                     make_plain(diff['children'], current_path)
                 )
             case _:
-                pass
+                raise ValueError(f"Unknown type: {diff['type']}")
     return '\n'.join(lines)
