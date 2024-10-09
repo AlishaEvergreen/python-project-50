@@ -1,4 +1,4 @@
-from gendiff.data_parsers import parse_by_extension
+from gendiff.data_parsers import read_file
 from gendiff.formatters.stylish import make_stylish
 from gendiff.formatters.plain import make_plain
 from gendiff.formatters.json import make_json
@@ -13,8 +13,8 @@ FORMATTERS = {
 
 def generate_diff(file1, file2, format='stylish'):
     """Generates the difference between two files."""
-    first_dict = parse_by_extension(file1)
-    second_dict = parse_by_extension(file2)
+    first_dict = read_file(file1)
+    second_dict = read_file(file2)
     diff = build_diff(first_dict, second_dict)
 
     return FORMATTERS[format](diff)
