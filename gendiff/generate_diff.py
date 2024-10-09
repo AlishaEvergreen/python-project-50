@@ -37,9 +37,9 @@ def get_node(key, data1, data2):
         case (False, True, _, _):
             return create_diff_dict('added', key, value2)
         case (True, False, value1, _) if is_dict(value1):
-            return create_diff_dict('nested', key, build_diff(value1, {}))
+            return create_diff_dict('nested', key, build_diff(value1))
         case (False, True, _, value2) if is_dict(value2):
-            return create_diff_dict('nested', key, build_diff({}, value2))
+            return create_diff_dict('nested', key, build_diff(value2))
         case (True, True, value1, value2):
             if value1 == value2:
                 return create_diff_dict('unchanged', key, value1)
@@ -55,7 +55,7 @@ def is_dict(data):
     return isinstance(data, dict)
 
 
-def create_diff_dict(diff_type, key, value1, value2="UNINITIALIZED"):
+def create_diff_dict(diff_type, key, value1, value2=None):
     """Builds a dictionary with information about the type of change."""
     diff_dict = {
         'type': diff_type,
@@ -66,7 +66,7 @@ def create_diff_dict(diff_type, key, value1, value2="UNINITIALIZED"):
     else:
         diff_dict['value1'] = value1
 
-    if value2 != "UNINITIALIZED":
+    if diff_type == 'updated':
         diff_dict['value2'] = value2
 
     return diff_dict
