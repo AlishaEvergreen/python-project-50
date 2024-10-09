@@ -14,48 +14,18 @@ def read_file(filepath):
         return f.read()
 
 
-@pytest.mark.parametrize("file1, file2, format, expected", [
-    (get_fixture_path('file1.json'),
-     get_fixture_path('file2.json'), 'stylish',
-     read_file(get_fixture_path('flat_json_yml_result.txt'))),
-
-    (get_fixture_path('file1.yml'),
-     get_fixture_path('file2.yml'), 'stylish',
-     read_file(get_fixture_path('flat_json_yml_result.txt'))),
-
-    (get_fixture_path('nested_file1.json'),
-     get_fixture_path('nested_file2.json'), 'stylish',
-     read_file(get_fixture_path('stylish_result.txt'))),
-
-    (get_fixture_path('nested_file1.yaml'),
-     get_fixture_path('nested_file2.yaml'), 'stylish',
-     read_file(get_fixture_path('stylish_result.txt'))),
+@pytest.mark.parametrize("filename1, filename2, format, expected", [
+    ('file1.json', 'file2.json', 'stylish', 'flat_json_yml_result.txt'),
+    ('file1.yml', 'file2.yml', 'stylish', 'flat_json_yml_result.txt'),
+    ('nested_file1.json', 'nested_file2.json', 'stylish', 'stylish_result.txt'),
+    ('nested_file1.yaml', 'nested_file2.yaml', 'stylish', 'stylish_result.txt'),
+    ('nested_file1.json', 'nested_file2.json', 'plain', 'plain_result.txt'),
+    ('nested_file1.yaml', 'nested_file2.yaml', 'plain', 'plain_result.txt'),
+    ('nested_file1.json', 'nested_file2.json', 'json', 'json_result.txt'),
+    ('nested_file1.yaml', 'nested_file2.yaml', 'json', 'json_result.txt'),
 ])
-def test_stylish_formatter(file1, file2, format, expected):
-    assert generate_diff(file1, file2, format) == expected
-
-
-@pytest.mark.parametrize("file1, file2, format, expected", [
-    (get_fixture_path('nested_file1.json'),
-     get_fixture_path('nested_file2.json'), 'plain',
-     read_file(get_fixture_path('plain_result.txt'))),
-
-    (get_fixture_path('nested_file1.yaml'),
-     get_fixture_path('nested_file2.yaml'), 'plain',
-     read_file(get_fixture_path('plain_result.txt'))),
-])
-def test_plain_formatter(file1, file2, format, expected):
-    assert generate_diff(file1, file2, format) == expected
-
-
-@pytest.mark.parametrize("file1, file2, format, expected", [
-    (get_fixture_path('nested_file1.json'),
-     get_fixture_path('nested_file2.json'), 'json',
-     read_file(get_fixture_path('json_result.txt'))),
-
-    (get_fixture_path('nested_file1.yaml'),
-     get_fixture_path('nested_file2.yaml'), 'json',
-     read_file(get_fixture_path('json_result.txt'))),
-])
-def test_json_formatter(file1, file2, format, expected):
-    assert generate_diff(file1, file2, format) == expected
+def test_gendiff(filename1, filename2, format, expected):
+    file1 = get_fixture_path(filename1)
+    file2 = get_fixture_path(filename2)
+    result = read_file(get_fixture_path(expected))
+    assert generate_diff(file1, file2, format) == result
