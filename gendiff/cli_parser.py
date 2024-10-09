@@ -1,7 +1,7 @@
 import argparse
 
 
-def build_arg_parser():
+def get_args():
     '''Create and configure an argument parser for
     comparing two configuration files.'''
     parser = argparse.ArgumentParser(
