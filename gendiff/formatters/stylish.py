@@ -68,6 +68,8 @@ def make_stylish(diffs, replacer=' ', spaces_count=2):
                         f"{deep_indent}{status}{key}: "
                         f"{iter_(diff['children'], depth + 2)}"
                     )
+                case _:
+                    raise ValueError(f"Unknown type: {diff['type']}")
         closing_indent = replacer * ((depth - 1) * 2)
         result = itertools.chain("{", lines, [closing_indent + "}"])
         return '\n'.join(result)
