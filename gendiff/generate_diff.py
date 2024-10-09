@@ -23,10 +23,10 @@ def generate_diff(file1, file2, format='stylish'):
 def build_diff(data1, data2):
     """ Builds a list of differences between two dictionaries."""
     combined_keys = sorted(data1.keys() | data2.keys())
-    return [set_type_for_difference(key, data1, data2) for key in combined_keys]
+    return [get_node(key, data1, data2) for key in combined_keys]
 
 
-def set_type_for_difference(key, data1, data2):
+def get_node(key, data1, data2):
     """Determines the type of difference for a specific key."""
     value1 = data1.get(key)
     value2 = data2.get(key)
