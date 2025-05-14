@@ -20,7 +20,8 @@ def make_plain(diffs, path=''):
         current_path = f"{path}.{key}" if path else key
 
         match diff['type']:
-            case 'unchanged': continue
+            case 'unchanged':
+                continue
             case 'added':
                 lines.append(
                     f"Property '{current_path}' was added with value: {value1}"
